@@ -1,0 +1,56 @@
+POST http://localhost:8080/api/articles
+Content-Type: application/json
+
+{
+  "title": "blog title",
+  "content": "blog content"
+}
+
+###
+GET localhost:8080/api/articles
+
+###
+@id = 1
+GET localhost:8080/api/articles/{{id}}
+
+###
+DELETE localhost:8080/api/articles/{{id}}
+
+###
+PUT localhost:8080/api/articles/{{id}}
+Content-Type: application/json
+
+{
+  "title": "변경된 제목",
+  "content": "변경된 내용"
+}
+
+###
+POST http://localhost:8080/api/articles/1/comments
+Content-Type: application/json
+
+{
+  "body": "댓글 내용3"
+}
+
+###
+@commentId=1
+GET http://localhost:8080/api/comments/{{commentId}}
+
+###
+PUT http://localhost:8080/api/comments/{{commentId}}
+Content-Type: application/json
+
+{
+  "body": "수정 댓글 내용1"
+}
+
+###
+DELETE http://localhost:8080/api/comments/{{commentId}}
+
+###
+@articleId=1
+GET http://localhost:8080/api/articles/{{articleId}}/comments
+
+###
+GET http://localhost:8080/api/external/comments
