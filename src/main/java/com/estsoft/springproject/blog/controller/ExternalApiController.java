@@ -82,8 +82,6 @@ public class ExternalApiController {
             commentRequest.setBody(body);
             commentService.saveComment(articleId, commentResponse); // 댓글 저장
         });
-
         return "OK";
     }
-
 }
