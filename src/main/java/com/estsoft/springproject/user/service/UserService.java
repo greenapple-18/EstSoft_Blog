@@ -24,4 +24,12 @@ public class UserService {
         Users users = new Users(email, encodedPassword);
         return userRepository.save(users);
     }
+
+    public Users verifyExample(AddUserRequest dto){
+        String email = dto.getEmail();
+        String password = dto.getPassword();
+        String encodedPassword = encoder.encode(password);
+
+        return userRepository.save(new Users(email, encodedPassword));
+    }
 }

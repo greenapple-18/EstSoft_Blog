@@ -1,5 +1,6 @@
 package com.estsoft.springproject.controller;
 
+import com.estsoft.springproject.entity.Member;
 import com.estsoft.springproject.repository.MemberRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,6 +15,7 @@ import org.springframework.web.context.WebApplicationContext;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -35,11 +37,13 @@ class MemberControllerTest {
 
     @Test
     public void testGetAllMembers() throws Exception{
+        Member savedMember = repository.save(new Member(1L, "홍길동"));
+
         ResultActions resultActions = mockMvc.perform(get("/members")
                 .accept(MediaType.APPLICATION_JSON));
 
         resultActions.andExpect(status().is2xxSuccessful())
-                .andExpect(jsonPath("$[0].id").value(1))
-                .andExpect(jsonPath("$[1].id").value(2));
+                .andExpect(jsonPath("$[0].id").value(savedMember.getId()))
+                .andExpect(jsonPath("$[0].name").value(savedMember.getName()));
     }
 }

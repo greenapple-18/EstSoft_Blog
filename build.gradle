@@ -2,6 +2,8 @@ plugins {
     id 'java'
     id 'org.springframework.boot' version '3.2.10'
     id 'io.spring.dependency-management' version '1.1.6'
+    id "org.sonarqube" version "5.1.0.4882"
+    id 'jacoco'
 }
 
 group = 'com.estsoft'
@@ -34,13 +36,35 @@ dependencies {
 
     testImplementation 'org.springframework.security:spring-security-test'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    runtimeOnly 'com.h2database:h2'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
-    runtimeOnly 'com.mysql:mysql-connector-j'
 }
 
 tasks.named('test') {
     useJUnitPlatform()
+    finalizedBy jacocoTestReport
+}
+
+jacocoTestReport {
+    dependsOn test
+    reports {
+        xml.required = true
+    }
+}
+
+sonarqube {
+    properties {
+        property "sonar.host.url", "http://localhost:9000"
+        property "sonar.token", "sqp_8b520e86bf67dbd64d2eeea07c9d6b3cc4a28198" // token
+        property "sonar.projectKey", "spring-project"           // project key
+        property "sonar.sources", "src"
+        property "sonar.language", "java"
+        property "sonar.sourceEncoding", "UTF-8"
+        property "sonar.test.inclusions", "**/*Test.java"
+        property 'sonar.exclusions', '**/test/**, **/resources/**, **/*Application.java'
+        property 'sonar.coverage.jacoco.xmlReportPaths', layout.buildDirectory.dir("reports/jacoco/test/jacocoTestReport.xml").get().asFile
+    }
 }
