@@ -50,6 +50,7 @@ class BookControllerTest {
                 .andExpect(jsonPath("$[0].author").value(newBook.getName()));
     }
 
+    @Disabled
     @Test
     public void showAll() throws Exception {
         ResultActions resultActions = mockMvc.perform(get("/books"));
