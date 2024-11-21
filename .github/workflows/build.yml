@@ -43,12 +43,6 @@ jobs:
     - name: Build with Gradle Wrapper
       run: ./gradlew build
 
-    - name: Upload build artifacts
-      uses: actions/upload-artifact@v4
-      with:
-        name: Package
-        path: build/libs
-
     - name: Make zip file
       run: zip -r ./$GITHUB_SHA.zip .
       shell: bash
