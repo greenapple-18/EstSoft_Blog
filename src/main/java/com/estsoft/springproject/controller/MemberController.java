@@ -2,6 +2,8 @@ package com.estsoft.springproject.controller;
 
 import com.estsoft.springproject.entity.Member;
 import com.estsoft.springproject.user.config.service.MemberService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,8 +26,9 @@ public class MemberController {
 
     // HTTP Post Method 요청(/members) 받는 메소드
     @PostMapping("/members")
-    public Member saveMember(@RequestBody Member member) {
+    public ResponseEntity<Member> saveMember(@RequestBody Member member) {
         // member 정보 저장하는 service 코드 호출
-        return memberService.saveMember(member);
+        Member savedMember = memberService.saveMember(member);
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedMember);
     }
 }

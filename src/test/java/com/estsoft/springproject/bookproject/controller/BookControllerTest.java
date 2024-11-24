@@ -40,7 +40,7 @@ class BookControllerTest {
 
     @Disabled
     @Test
-    public void addBook() throws Exception{
+    public void testAddBook() throws Exception{
         Book newBook = new Book("book1", "author1");
 
         ResultActions resultActions = mockMvc.perform(post("/books").accept(MediaType.APPLICATION_JSON));
@@ -50,17 +50,12 @@ class BookControllerTest {
                 .andExpect(jsonPath("$[0].author").value(newBook.getName()));
     }
 
-    @Disabled
     @Test
-    public void showAll() throws Exception {
+    public void testShowAll() throws Exception {
         ResultActions resultActions = mockMvc.perform(get("/books"));
 
         resultActions.andExpect(status().isOk())
                 .andExpect(view().name("bookManagement"))
                 .andExpect(model().attribute("bookList", hasSize(3)));
-    }
-
-    @Test
-    void findById() {
     }
 }

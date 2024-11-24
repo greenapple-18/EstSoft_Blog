@@ -52,8 +52,6 @@ public class BlogController {
     @Parameter(name = "id", description = "블로그 글 ID", example = "45")
     @GetMapping("/articles/{id}")
     public ResponseEntity<ArticleResponse> findById(@PathVariable Long id) {
-//        Article article = service.findById(id);
-//        ArticleResponse articleResponse = new ArticleResponse(article.getId(), article.getTitle(), article.getContent());
         return ResponseEntity.ok(service.findById(id).convert());
     }
 

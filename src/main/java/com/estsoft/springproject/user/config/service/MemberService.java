@@ -12,10 +12,6 @@ import java.util.List;
 public class MemberService {
     private final MemberRepository repository;
 
-//    public MemberService(MemberRepository repository) { // DI
-//        this.repository = repository;
-//    }
-
     public List<Member> getAllMembers() {
         return repository.findAll();       // Member 테이블 모든 정보 조회
         // SELECT * FROM member;
@@ -24,5 +20,4 @@ public class MemberService {
     public Member saveMember(Member member) {
         return repository.save(member);
     }
-
 }

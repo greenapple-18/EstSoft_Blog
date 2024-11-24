@@ -1,4 +1,4 @@
-package com.estsoft.springproject.controller;
+package com.estsoft.springproject.domain;
 
 import lombok.Getter;
 import lombok.Setter;

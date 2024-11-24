@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
+import java.util.Objects;
 
 @Slf4j
 @RestController
@@ -55,7 +56,7 @@ public class ExternalApiController {
                 }
         );
 
-        resultList.getBody().forEach(blogService::saveArticle);
+        Objects.requireNonNull(resultList.getBody()).forEach(blogService::saveArticle);
 
         return "OK";
     }
@@ -74,7 +75,7 @@ public class ExternalApiController {
         );
 
         // 댓글 데이터 저장
-        resultList.getBody().forEach(commentResponse -> {
+        Objects.requireNonNull(resultList.getBody()).forEach(commentResponse -> {
             Long articleId = commentResponse.getArticleId(); // JSON에서 받은 postId를 articleId로 매핑
             String body = commentResponse.getBody(); // 댓글 내용
             CommentRequest commentRequest = new CommentRequest();
