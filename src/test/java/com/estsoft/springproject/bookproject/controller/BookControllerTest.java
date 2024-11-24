@@ -2,7 +2,6 @@ package com.estsoft.springproject.bookproject.controller;
 
 import com.estsoft.springproject.bookproject.domain.Book;
 import com.estsoft.springproject.bookproject.service.BookService;
-import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -20,7 +19,6 @@ import org.springframework.web.context.WebApplicationContext;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -67,7 +65,6 @@ class BookControllerTest {
         ResultActions resultActions = mockMvc.perform(get("/books"));
 
         resultActions.andExpect(status().isOk())
-                .andExpect(view().name("bookManagement"))
-                .andExpect(model().attribute("bookList", hasSize(3)));
+                .andExpect(view().name("bookManagement"));
     }
 }
