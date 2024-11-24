@@ -7,6 +7,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -15,6 +16,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
+
+import java.util.Arrays;
+import java.util.List;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -52,6 +56,14 @@ class BookControllerTest {
 
     @Test
     public void testShowAll() throws Exception {
+        List<Book> mockBooks = Arrays.asList(
+                new Book("Book 1", "Author 1"),
+                new Book("Book 2", "Author 2"),
+                new Book("Book 3", "Author 3")
+        );
+
+        Mockito.when(bookService.findAll()).thenReturn(mockBooks);
+
         ResultActions resultActions = mockMvc.perform(get("/books"));
 
         resultActions.andExpect(status().isOk())
